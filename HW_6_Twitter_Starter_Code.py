@@ -195,7 +195,7 @@ def find_most_common_cooccurring_hashtag(tweet_data, hashtag_to_ignore):
     for tweet in tweet_data['statuses']:
         all_hash = tweet['entities']['hashtags']
         for hash_tag in all_hash:
-            hash_text = hash_tag['text']
+            hash_text = hash_tag['text'].lower()
             if hash_text in hash_dict:
                 hash_dict[hash_text] += 1
             else:
@@ -204,10 +204,10 @@ def find_most_common_cooccurring_hashtag(tweet_data, hashtag_to_ignore):
     for key in hash_dict.keys():
         hash_list.append([key, hash_dict[key]])
     hash_list.sort(key=lambda x:x[1], reverse=True)
-    if '#'+ hash_list[0][0] == hashtag_to_ignore:
-        return hash_list[1][0]
+    if '#'+ hash_list[0][0] == hashtag_to_ignore.lower():
+        return '#' + hash_list[1][0]
     else:
-        return hash_list[0][0]
+        return '#' + hash_list[0][0]
         
     ''' Hint: In case you're confused about the hashtag_to_ignore 
     parameter, we want to ignore the hashtag we queried because it would 
