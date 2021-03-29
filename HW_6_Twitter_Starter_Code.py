@@ -157,17 +157,17 @@ def make_request_with_cache(baseurl, hashtag, count):
         JSON
     '''
     #TODO Implement function
+    CACHE_DICTION = open_cache()
     params = {'q': hashtag, 'count': count}
     unique_key = construct_unique_key(baseurl, params)
-    cache_dict = open_cache()
-    if cache_dict and unique_key in cache_dict:
+    if CACHE_DICTION and unique_key in CACHE_DICTION:
         print("fetching cached data")
-        return cache_dict[unique_key]
+        return CACHE_DICTION[unique_key]
     else:
         print("making new request")
         data = make_request(baseurl, params)
-        cache_dict[unique_key] = data
-        save_cache(cache_dict)
+        CACHE_DICTION[unique_key] = data
+        save_cache(CACHE_DICTION)
         return data
 
 
